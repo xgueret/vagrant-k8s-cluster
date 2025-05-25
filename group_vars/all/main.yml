@@ -1,0 +1,7 @@
+---
+k8s_release: "1.33"
+k8s_version: "{{ k8s_release }}.0"
+home_dir: "/home/{{ ansible_user | default('vagrant') }}"
+ansible_uid: 1000
+ansible_gid: 1000
+join_command_location: "join_command.out"

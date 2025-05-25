@@ -1,0 +1,15 @@
+extends: default
+
+rules:
+#   line-length:
+#     level: warning  # change 'error' to 'warning'
+#     max: 120        # ou la longueur que tu acceptes
+#     allow-non-breakable-words: true
+#     allow-non-breakable-inline-mappings: true
+    line-length: disable
+
+ignore: |
+  .ansible-lint
+  .yamllint
+  **/vault/**/*.yml
+  **/vault/**/*.yaml

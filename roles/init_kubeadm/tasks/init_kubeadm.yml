@@ -9,7 +9,7 @@
   when: not admin_conf_stat.stat.exists
   block:
     - name: Kubeadm init
-      ansible.builtin.command: "kubeadm init --apiserver-advertise-address=192.168.1.70 --pod-network-cidr=192.168.0.0/16 --kubernetes-version={{ k8s_version }}"
+      ansible.builtin.command: "kubeadm init --apiserver-advertise-address=192.168.1.70 --pod-network-cidr=10.244.0.0/16 --kubernetes-version={{ k8s_version }}"
       args:
         creates: /etc/kubernetes/admin.conf
       register: kubeadm_init

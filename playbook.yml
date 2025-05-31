@@ -66,3 +66,25 @@
   become: true
   roles:
     - role: join_workers
+
+
+- name: Fix ip
+  hosts: all
+  become: true
+  tasks:
+    - name: Configure kubelet node-ip
+      ansible.builtin.lineinfile:
+        path: /var/lib/kubelet/kubeadm-flags.env
+        regexp: '^KUBELET_KUBEADM_ARGS='
+        line: >
+          KUBELET_KUBEADM_ARGS="--container-runtime-endpoint=unix:///var/run/containerd/containerd.sock
+          --pod-infra-container-image=registry.k8s.io/pause:3.10
+          --node-ip={{ ansible_eth2.ipv4.address }}"
+        backup: true
+
+    - name: Reload systemd daemon enable and restart kubelet service
+      ansible.builtin.systemd:
+        daemon_reload: true
+        enabled: true
+        state: restarted
+        name: kubelet
